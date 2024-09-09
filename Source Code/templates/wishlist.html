@@ -1,0 +1,59 @@
+
+    {% include "customer_head.html" %}
+
+
+    <div class="row">
+        {% for product in products: %}
+            <div class="col-md-4 mt-3">
+                <div class="card mt-1 p-2">
+                    <div class="row">
+                         <div class="col-md-6">
+                            <img src="../static/products/{{product[3]}}" style="height:150px;overflow:auto;width:150px" class="text-center">
+                        </div>
+                        <div class="col-md-6">
+                            <span class="f-130 mt-10">{{product[2]}}</span> || <span class="f-130 mt-10">Colour : {{product[10]}}</span> ||
+                            <span class="f-130 mt-10">{{product[8]}}</span>
+                            <div class="f-130 mt-10"><span style="font-size: 13px">M.R.P</span> <span class="currentPrice"><b>₹ {{product[4]}}</b></span><span style="color: red">({{product[6]}} % off)</span> </div>
+                            <div class="mt-10 f-110"><b>₹ {{product[7]}}</b></div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                     <div class="mt-10 f-110" style="font-size: 13px">Free Delivery</div>
+                                </div>
+                                {% if session['role']=='customer' %}
+                                <div class="col-md-3 icon">
+                                     <a href="wishlist?product_id={{product[0]}}" class="wishlist-icon" id="wishlist-icon">
+                                        &#10084; <!-- Unicode heart symbol -->
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mt-10 f-110 rating">{{product[9]}} *</div>
+
+                            {% if session['role']=='customer' %}
+                                    <form action="add_cart" method="post">
+                                        <div>
+                                            <input type="hidden" name="product_id" value="{{product[0]}}">
+                                        </div>
+                                         <div class="row mt-2">
+                                             <div class="col-md-6 part-30 p-10 f-110">
+                                                <input type="number" name="quantity" id="quantity" class="form-control" placeholder="Quantity"  min="1" max="{{product[5]}}">
+                                             </div>
+                                            <div class="col-md-6 part-50 p-10 f-110">
+                                                <input type="submit" value="Add Cart" class="bg-success w-100 mt- login">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <script>
+
+        </script>
+        <script src="../static/script.js"></script>
+    </div>
+</div>
